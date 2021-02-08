@@ -37,6 +37,8 @@ namespace FlatDateTimePickerExample
             this.flatDateTimePicker3 = new FlatDateTimePicker();
             this.flatDateTimePicker9 = new FlatDateTimePicker();
             this.flatDateTimePicker1 = new FlatDateTimePicker();
+            this.flatDateTimePicker7 = new FlatDateTimePicker();
+            this.flatDateTimePicker8 = new FlatDateTimePicker();
             this.SuspendLayout();
             // 
             // flatDateTimePicker6
@@ -61,9 +63,9 @@ namespace FlatDateTimePickerExample
             // flatDateTimePicker15
             // 
             this.flatDateTimePicker15.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.flatDateTimePicker15.Location = new System.Drawing.Point(10, 13);
+            this.flatDateTimePicker15.Location = new System.Drawing.Point(10, 137);
             this.flatDateTimePicker15.Name = "flatDateTimePicker15";
-            this.flatDateTimePicker15.Size = new System.Drawing.Size(225, 25);
+            this.flatDateTimePicker15.Size = new System.Drawing.Size(312, 25);
             this.flatDateTimePicker15.TabIndex = 6;
             // 
             // flatDateTimePicker4
@@ -115,13 +117,32 @@ namespace FlatDateTimePickerExample
             this.flatDateTimePicker1.Size = new System.Drawing.Size(225, 25);
             this.flatDateTimePicker1.TabIndex = 11;
             // 
+            // flatDateTimePicker7
+            // 
+            this.flatDateTimePicker7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.flatDateTimePicker7.Location = new System.Drawing.Point(10, 12);
+            this.flatDateTimePicker7.Name = "flatDateTimePicker7";
+            this.flatDateTimePicker7.Size = new System.Drawing.Size(225, 25);
+            this.flatDateTimePicker7.TabIndex = 6;
+            // 
+            // flatDateTimePicker8
+            // 
+            this.flatDateTimePicker8.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.flatDateTimePicker8.Enabled = false;
+            this.flatDateTimePicker8.Location = new System.Drawing.Point(10, 167);
+            this.flatDateTimePicker8.Name = "flatDateTimePicker8";
+            this.flatDateTimePicker8.Size = new System.Drawing.Size(312, 25);
+            this.flatDateTimePicker8.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 144);
+            this.ClientSize = new System.Drawing.Size(476, 204);
             this.Controls.Add(this.flatDateTimePicker6);
             this.Controls.Add(this.flatDateTimePicker5);
+            this.Controls.Add(this.flatDateTimePicker7);
+            this.Controls.Add(this.flatDateTimePicker8);
             this.Controls.Add(this.flatDateTimePicker15);
             this.Controls.Add(this.flatDateTimePicker4);
             this.Controls.Add(this.flatDateTimePicker2);
@@ -145,6 +166,8 @@ namespace FlatDateTimePickerExample
         private FlatDateTimePicker flatDateTimePicker3;
         private FlatDateTimePicker flatDateTimePicker9;
         private FlatDateTimePicker flatDateTimePicker1;
+        private FlatDateTimePicker flatDateTimePicker7;
+        private FlatDateTimePicker flatDateTimePicker8;
     }
 }
 

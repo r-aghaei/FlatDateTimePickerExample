@@ -5,10 +5,14 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 public class FlatDateTimePicker : DateTimePicker
 {
+    private Image calendarImage;
+    private Image calendarImageWhite;
     public FlatDateTimePicker()
     {
         SetStyle(ControlStyles.ResizeRedraw, true);
         DoubleBuffered = true;
+        calendarImage = FlatDateTimePickerExample.Properties.Resources.Calendar;
+        calendarImageWhite = FlatDateTimePickerExample.Properties.Resources.CalendarWhite;
     }
 
     private Color borderColor = Color.DeepSkyBlue;
@@ -35,20 +39,38 @@ public class FlatDateTimePicker : DateTimePicker
             SendMessage(Handle, DTM_GETDATETIMEPICKERINFO, IntPtr.Zero, ref info);
 
             var clientRect = new Rectangle(0, 0, Width, Height);
-            var dropDownRect = new Rectangle(info.rcButton.L, info.rcButton.T,
+            var dropDownButtonRect = new Rectangle(info.rcButton.L, info.rcButton.T,
                info.rcButton.R - info.rcButton.L, clientRect.Height);
+            var dropDownRect = dropDownButtonRect;
+            var imageRect = Rectangle.Empty;
+            if (info.rcButton.R - info.rcButton.L > SystemInformation.HorizontalScrollBarArrowWidth)
+            {
+                var w = dropDownButtonRect.Width / 2;
+                imageRect = dropDownButtonRect;
+                imageRect.Width = w;
+
+                dropDownRect.X += w;
+                dropDownRect.Width = w;
+            }
             var checkBoxRect = new Rectangle(info.rcCheck.L, info.rcCheck.T,
                info.rcCheck.R - info.rcCheck.L, clientRect.Height);
             var innerRect = new Rectangle(checkBoxRect.Right + 1, 1,
-                clientRect.Width - dropDownRect.Width - checkBoxRect.Width - (ShowCheckBox ? 3 : 1),
+                clientRect.Width - dropDownButtonRect.Width - checkBoxRect.Width - (ShowCheckBox ? 3 : 1),
                 clientRect.Height - 2);
             if (RightToLeft == RightToLeft.Yes && RightToLeftLayout == true)
             {
-                dropDownRect.X = clientRect.Width - dropDownRect.Right;
-                dropDownRect.Width += 1;
+                dropDownButtonRect.X = clientRect.Width - dropDownButtonRect.Right;
+                dropDownButtonRect.Width += 1;
+
                 innerRect.X -= clientRect.Width - innerRect.X;
                 innerRect.Width += 1;
+
+                imageRect.X = clientRect.Width - imageRect.Right;
+
+                dropDownRect.X = clientRect.Width - dropDownRect.Right;
+                dropDownRect.Width += 1;
             }
+
             var middle = new Point(dropDownRect.Left + dropDownRect.Width / 2,
                 dropDownRect.Top + dropDownRect.Height / 2);
             var arrow = new Point[]
@@ -115,9 +137,21 @@ public class FlatDateTimePicker : DateTimePicker
                 else
                 {
                     var buttonColor = Enabled ? BorderColor : Color.LightGray;
-                    var arrorColor = dropDownRect.Contains(PointToClient(Cursor.Position)) ? Color.White : Color.Black;
+                    var arrorColor = Color.Black;
+                    var imageToRender = calendarImage;
+                    if(dropDownButtonRect.Contains(PointToClient(Cursor.Position)))
+                    {
+                        arrorColor = Color.White;
+                        imageToRender = calendarImageWhite;
+                    }
                     using (var brush = new SolidBrush(buttonColor))
-                        g.FillRectangle(brush, dropDownRect);
+                        g.FillRectangle(brush, dropDownButtonRect);
+                    if (imageRect != Rectangle.Empty)
+                        g.DrawImage(imageToRender,
+                            imageRect.Left + ((imageRect.Width - imageToRender.Width) / 2),
+                            imageRect.Top + ((imageRect.Height - imageToRender.Height) / 2),
+                            calendarImage.Width,
+                            calendarImage.Height);
                     using (var brush = new SolidBrush(arrorColor))
                         g.FillPolygon(brush, arrow);
                 }
